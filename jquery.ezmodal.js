@@ -48,18 +48,12 @@ A extensible jQuery modal.
             var defaults = {
                 container: 'body', // the backdrop container
 
-                // these functions can be used as entry point
-                // for complex animations for example. But I suggest to use CSS3 transitions.
-                // arguments: ui is an object with: container, backdrop, wrapper and modal 
-                onBeforeOpen: function (ui, opt, cb){cb();},
-                onAfterOpen: function (ui, opt){},
-                onBeforeClose: function (ui, opt, cb){cb();},
-                onAfterClose: function (ui, opt){},
-                onAfterLoad: function (ui, opt){}, // it is called after loading a page (see below)
-
                 closeOnBackgroundClick: true, // close backdrop when someone clicks on the backdrop
 
                 triggerOnClick: false, // the modal opens when you click on this element
+
+                toggleButtons: false, // this is a list of buttons that trigger the modal
+                                      // (it used to link the buttons to the modal)
 
                 autoOpen: false,      // opens the modal after init
                 closeKeyCodes: [27],  // clicking on one of this keys triggers the close. 
@@ -92,6 +86,7 @@ A extensible jQuery modal.
                 }
                  
                 ui.modal = $(this).addClass("ez-modal");
+                ui.modal.data('modal', 'active');
 
                 addClasses = function(){
                     ui.backdrop.show();
@@ -103,7 +98,8 @@ A extensible jQuery modal.
                         ui.modal.addClass("ez-modal-on");
                     }, 30);
 
-                    ui.modal.attr("aria-hidden", "false")                   
+                    ui.modal.attr("aria-hidden", "false");
+                    ui.modal.focus();                   
                 };
 
                 removeClasses = function (){
@@ -157,7 +153,7 @@ A extensible jQuery modal.
                         ui.modal.load($.isFunction(o.ajaxUrl) && o.ajaxUrl() || o.ajaxUrl, function (){
                             alreadyLoaded = true;
                             toBeCentered = o.center;                            
-                            o.onAfterLoad(ui, o);
+                            ui.modal.trigger({type: "ez-modal-after-load", ui: ui, opt: o});
                             cb();
                         });
                     }
@@ -172,20 +168,15 @@ A extensible jQuery modal.
 
                 ui.modal.bind('ez-modal-open', function (){
                     loadHTML(function (){
-                        o.onBeforeOpen(ui, o, function (){
-                            addClasses();
-                            centerModal();
-                            o.onAfterOpen(ui, o);                        
-                        });
-
+                        addClasses();
+                        centerModal();
+                        ui.modal.trigger({type: "ez-modal-after-open", ui: ui, opt: o});
                     });
                 });
 
                 ui.modal.bind('ez-modal-close', function (){
-                    o.onBeforeClose(ui, o, function (){
-                        removeClasses();   
-                        o.onAfterClose(ui, o);
-                    });
+                    removeClasses();   
+                    ui.modal.trigger({type: "ez-modal-after-close", ui: ui, opt: o});
                 });
 
                 if(o.autoOpen) {
@@ -202,8 +193,14 @@ A extensible jQuery modal.
                 }
 
                 if (o.triggerOnClick){
-                    $(document).on("click" + evtNS, o.triggerOnClick, function (){
+                    $(document).on("click" + evtNS, o.triggerOnClick, function (evt){
                         ui.modal.trigger('ez-modal-open');
+                    });
+                }
+
+                if (o.toggleButtons){
+                    $(o.toggleButtons).each(function (){
+                        $(this).data('modal', ui.modal);
                     });
                 }
 
@@ -222,6 +219,7 @@ A extensible jQuery modal.
                     ui.modal.off(evtNS);
                     $(document).off(evtNS);
                     removeClasses();
+                    ui.modal.removeData('modal');
                 });
             });
 
@@ -252,5 +250,33 @@ A extensible jQuery modal.
         $.error('Method ' + method + ' does not exist on jQuery.ezmodal');
 
     };
+
+    /* HTML5 data API */
+    $(document).on('click.ez-modal', '[data-toggle="modal"]', function (e) {
+        var $this   = $(this),
+            href    = $this.attr('href'),
+            target = $this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, '')), //strip for ie7
+            $target;
+
+        // not ajax
+        if(target.indexOf('#') === 0){
+            $target = $(target);
+            if (!$target.data('modal')){
+                $target.ezmodal($.extend($target.data(), $this.data()));
+            }
+        }
+        // ajax
+        else {
+            if (!$this.data('modal')){
+                $target = $('<div class="ez-modal" aria-hidden="true" role="dialog"></div>')
+                .ezmodal($.extend({ajaxUrl: target}, $this.data()))
+                .appendTo('body');
+            }
+        }
+
+        $target.ezmodal('open');
+        e.preventDefault();
+    });
+
 
 }(jQuery));

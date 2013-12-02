@@ -77,16 +77,6 @@ Options
 
     container: 'body', // the modal container
 
-    // these functions can be used as entry point
-    // for complex animations. But I suggest to use CSS3 transitions.
-    // arguments: ui is an object with: container, backdrop, wrapper and modal
-    //            opt is the original options object  
-    onBeforeOpen: function (ui, opt, cb){cb();},
-    onAfterOpen: function (ui, opt){},
-    onBeforeClose: function (ui, opt, cb){cb();},
-    onAfterClose: function (ui, opt){},
-    onAfterLoad: function (ui, opt){}, // it is called after loading a page (see below)
-
     closeOnBackgroundClick: true, // close backdrop when someone clicks on the backdrop
 
     triggerOnClick: false, // the modal opens when you click on this element
@@ -103,4 +93,27 @@ Options
     ajaxUrl: false, // can be false, a string or a function that returns a url
     ajaxRefreshEverytime: true, // refresh the modal when reopened
     ajaxLoadOnInit: false // it loads on init (instead of on open)
+
+Events
+------
+The modal triggers this events:
+
+    ez-modal-open : before the modal opens
+    ez-modal-close : before the modal closes
+    ez-modal-destroy: before the modal is destroyed
+    ez-modal-after-open : after the modal opens
+    ez-modal-after-close: after the modal closes
+    ez-modal-after-load: after an html fragment is loaded with ajax
+
+
+If you manage this events you can find in the "opt" object the same parameters passed to the plugin.
+In the ui object you will find: container, backdrop, and modal 
+
+HTML5 data API
+--------------
+You can trigger the modal using an HTML5 data api. Examples:
+
+        <button data-toggle="modal" data-target="#modal3" data-center="true">Internal modal (data api)</button>
+        <button data-toggle="modal" data-target="ajax.html">ajax modal (data api)</button>
+        <a data-toggle="modal" href="ajax.html">link (data api)</a>
 

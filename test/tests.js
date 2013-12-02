@@ -40,3 +40,4 @@ asyncTest( "open ajax", function() {
 	start();
   }, 650);
 });
+

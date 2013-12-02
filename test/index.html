@@ -21,9 +21,9 @@
 	.visualClear{
 		clear: both;
 	}
-    #modal1{
+  .ez-modal{
         width: 500px;
-        /*margin-left: -250px;*/
+        margin-left: -250px;
         /*
             the modal must have a width
             and a margin-left (the half of its width)
@@ -33,11 +33,7 @@
         padding: 20px;
     }
 
-    #modal2{
-        max-width: 500px;
-        background-color: white;
-        padding: 20px;
-    }
+
     </style>
 
 </head>
@@ -49,6 +45,9 @@
         <button class="trigger-modal1">click here</button>
         <button class="trigger-modal2">click here</button>
 
+        <button data-toggle="modal" data-target="#modal3" data-center="true">Internal modal (data api)</button>
+        <button data-toggle="modal" data-target="ajax.html">ajax modal (data api)</button>
+        <a data-toggle="modal" href="ajax.html">link (data api)</a>
     
     </div>
 
@@ -60,13 +59,13 @@
         </div>
     </div>
 
-<!--     <div id="modal2" class="ez-modal fade slide">
+     <div id="modal3" class="ez-modal">
         <div class="wrapper">
-          <h2>Hello world.</h2>
+          <h2>Hello HTML5 world.</h2>
             <button class="ez-modal-close">close</button>
             <div class="visualClear"></div>
         </div>
-    </div> -->
+    </div>
 
 
   <script src="resources/jquery-1.10.2.min.js"></script>
