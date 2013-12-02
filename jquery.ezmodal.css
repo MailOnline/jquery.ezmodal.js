@@ -1,10 +1,6 @@
-/*    <body class="ez-modal-container-on">
-        ...
-        <div class="my-modal-selector ez-modal ez-modal-on" aria-hidden="false" role="dialog">
-            <!-- this is you modal -->
-        </div>
-        ...
-        <div class="ez-modal-backdrop ez-modal-backdrop-on"></div>*/
+/*
+   this is intended to be a guide on the modal css more than one ready to use one.
+*/
 
 .ez-modal{
     display: none;
@@ -30,12 +26,12 @@
 }
 
 /* 
- sample transition 
+ You can blur the background but 
+ it require to be wrapped in a container 
 */
 
-
 .ez-modal-container-on .content{
-    -webkit-filter: blur(3px);
+    -webkit-filter: blur(1px);
 }
 
 
@@ -59,14 +55,14 @@
 
 
 /* 
-modals effects 
+sample modals effects 
 */
 
 /* initial state */
 .ez-modal{ 
-   -moz-transition: opacity 400ms, -moz-transform 400ms ease-out;
-   -webkit-transition: opacity 400ms, -webkit-transform 400ms ease-out;
-   transition: opacity 400ms, transform 400ms ease-out;
+   -moz-transition: opacity 400ms, -moz-transform 400ms ease-in-out;
+   -webkit-transition: opacity 400ms, -webkit-transform 400ms ease-in-out;
+   transition: opacity 400ms, transform 400ms ease-in-out;
    opacity: 0;
 
     

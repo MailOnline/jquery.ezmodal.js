@@ -86,7 +86,7 @@ A extensible jQuery modal.
                     toBeCentered = o.center, centerModal;
 
                 ui.container = $(o.container);
-                ui.backdrop = ui.container.find("ez-modal-backdrop");
+                ui.backdrop = ui.container.children(".ez-modal-backdrop");
                 if (!ui.backdrop.length){
                     ui.backdrop = $('<div class="ez-modal-backdrop"></div>').appendTo(ui.container);
                 }

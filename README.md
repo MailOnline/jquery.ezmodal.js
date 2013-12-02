@@ -70,7 +70,10 @@ Destroy (unbind all events) with:
     or
     $(".my-modal-selector").ezmodal("destroy");
 
-Options:
+Give a look to the CSS to have an idea on how to style the modal.
+
+Options
+-------
 
     container: 'body', // the modal container
 
