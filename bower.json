@@ -1,0 +1,21 @@
+{
+  "name": "jquery.ezmodal.js",
+  "version": "0.0.1",
+  "main": ["jquery.ezmoda.js", "jquery.ezmodal.css"]
+  "homepage": "https://github.com/sithmel/jquery.ezmodal.js",
+  "authors": [
+    "Maurizio Lupo <maurizio.lupo@gmail.com>"
+  ],
+  "description": "A very simple modal",
+  "license": "MIT, GPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies":{
+    "jquery": "*"
+  }
+}

@@ -1,0 +1,93 @@
+/*    <body class="ez-modal-container-on">
+        ...
+        <div class="my-modal-selector ez-modal ez-modal-on" aria-hidden="false" role="dialog">
+            <!-- this is you modal -->
+        </div>
+        ...
+        <div class="ez-modal-backdrop ez-modal-backdrop-on"></div>*/
+
+.ez-modal{
+    display: none;
+    z-index: 1010;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    /*
+        to center manually
+        the modal must have a width
+        and you should define a margin-left: -(width/2)
+    */
+}
+
+.ez-modal-backdrop{
+    display: none;
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* 
+ sample transition 
+*/
+
+
+.ez-modal-container-on .content{
+    -webkit-filter: blur(3px);
+}
+
+
+/* 
+ backdrop effects
+*/
+.ez-modal-backdrop{
+    background-color: #000;
+    opacity: 0;
+
+    -webkit-transition: opacity 400ms ease-in-out;
+    -moz-transition: opacity 400ms ease-in-out;
+    transition: opacity 400ms ease-in-out;
+}
+
+.ez-modal-backdrop.ez-modal-backdrop-on{
+    opacity: 0.5;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+}
+
+
+/* 
+modals effects 
+*/
+
+/* initial state */
+.ez-modal{ 
+   -moz-transition: opacity 400ms, -moz-transform 400ms ease-out;
+   -webkit-transition: opacity 400ms, -webkit-transform 400ms ease-out;
+   transition: opacity 400ms, transform 400ms ease-out;
+   opacity: 0;
+
+    
+    -webkit-transform: translateY(-300px);
+    -o-transform:translateY(-300px); 
+    transform: translateY(-300px);
+}
+
+/* open state */
+.ez-modal.ez-modal-on{
+    opacity: 1;
+
+    -webkit-transform: translateY(0px);
+    -o-transform:translateY(0px); 
+    transform: translateY(0px);
+}
+
+/* closing state */
+.ez-modal.ez-modal-off{
+
+    -webkit-transform: scale(0, 0);
+    -o-transform: scale(0, 0);
+    transform: scale(0, 0);
+}

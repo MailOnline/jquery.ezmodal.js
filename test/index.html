@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit jquery.ezmodal</title>
+  <link rel="stylesheet" href="resources/qunit.css">
+  <link rel="stylesheet" href="../jquery.ezmodal.css">
+    <style>
+      .wrapper{
+      	border-radius: 8px;
+      	background-color: #EEE;
+      	height: 92%;
+      	width: 92%;
+      	padding: 4%;
+      }
+      .wrapper button{
+      	float: right;
+      	cursor: pointer;
+      }
+
+	.visualClear{
+		clear: both;
+	}
+    #modal1{
+        width: 500px;
+        /*margin-left: -250px;*/
+        /*
+            the modal must have a width
+            and a margin-left (the half of its width)
+            to be centered
+        */
+        background-color: white;
+        padding: 20px;
+    }
+
+    #modal2{
+        max-width: 500px;
+        background-color: white;
+        padding: 20px;
+    }
+    </style>
+
+</head>
+<body>
+    <div class="content">
+
+        <div id="qunit"></div>
+        <div id="qunit-fixture"></div>
+        <button class="trigger-modal1">click here</button>
+        <button class="trigger-modal2">click here</button>
+
+    
+    </div>
+
+    <div id="modal1" class="ez-modal">
+        <div class="wrapper">
+	        <h2>Hello world.</h2>
+            <button class="ez-modal-close">close</button>
+            <div class="visualClear"></div>
+        </div>
+    </div>
+
+<!--     <div id="modal2" class="ez-modal fade slide">
+        <div class="wrapper">
+          <h2>Hello world.</h2>
+            <button class="ez-modal-close">close</button>
+            <div class="visualClear"></div>
+        </div>
+    </div> -->
+
+
+  <script src="resources/jquery-1.10.2.min.js"></script>
+  <script src="resources/qunit.js"></script>
+  <script src="../jquery.ezmodal.js"></script>
+  <script src="tests.js"></script>
+</body>
+</html>
