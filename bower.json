@@ -1,8 +1,8 @@
 {
   "name": "jquery.ezmodal.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": ["jquery.ezmodal.js", "jquery.ezmodal.css"],
-  "homepage": "https://github.com/sithmel/jquery.ezmodal.js",
+  "homepage": "https://github.com/Mailonline/jquery.ezmodal.js",
   "authors": [
     "Maurizio Lupo <maurizio.lupo@gmail.com>"
   ],

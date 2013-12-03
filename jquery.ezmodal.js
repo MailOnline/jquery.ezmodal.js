@@ -268,9 +268,13 @@ A extensible jQuery modal.
         // ajax
         else {
             if (!$this.data('modal')){
-                $target = $('<div class="ez-modal" aria-hidden="true" role="dialog"></div>')
-                .ezmodal($.extend({ajaxUrl: target}, $this.data()))
+                $target = $('<div class="ez-modal" aria-hidden="true" role="dialog"></div>');
+                $target
+                .ezmodal($.extend({ajaxUrl: target, toggleButtons: $this}, $this.data()))
                 .appendTo('body');
+            }
+            else {
+                $target = $this.data('modal');
             }
         }
 
