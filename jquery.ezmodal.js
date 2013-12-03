@@ -195,6 +195,7 @@ A extensible jQuery modal.
                 if (o.triggerOnClick){
                     $(document).on("click" + evtNS, o.triggerOnClick, function (evt){
                         ui.modal.trigger('ez-modal-open');
+                        evt.preventDefault();
                     });
                 }
 
@@ -206,6 +207,7 @@ A extensible jQuery modal.
 
                 ui.modal.on("click" + evtNS, ".ez-modal-close", o.closeButtonClass,function (evt){
                     ui.modal.trigger('ez-modal-close');
+                    evt.preventDefault();
                 });
 
                 if (o.closeOnBackgroundClick){
