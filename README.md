@@ -1,5 +1,5 @@
-jquery.ezmodal.js 0.0.1
-=======================
+jquery.ezmodal.js
+=================
 A extensible jQuery modal.
 
 Instructions
@@ -82,8 +82,9 @@ Options
     triggerOnClick: false, // the modal opens when you click on this element
 
     autoOpen: false,      // opens the modal after init
-    closeKeyCodes: [27],  // clicking on one of this keys triggers the close. 
-                          // Set to null to not close using keys
+    closeKeyCodes: "27",  // a space separated list of keycodes
+                          // clicking on one of this keys triggers the close. 
+                          // Set to blank to not close using keys (default esc)
 
     center: false,         // it centers the modal on the screen (you should use css if possible)
     
@@ -98,16 +99,20 @@ Events
 ------
 The modal triggers this events:
 
-    ez-modal-open : before the modal opens
-    ez-modal-close : before the modal closes
+    ez-modal-open : trigger the modal opens
+    ez-modal-close : trigger the modal closes
     ez-modal-destroy: before the modal is destroyed
+    ez-modal-before-open : before the modal opens
+    ez-modal-before-close : before the modal closes
     ez-modal-after-open : after the modal opens
     ez-modal-after-close: after the modal closes
+    ez-modal-before-load: before an html fragment is loaded with ajax
     ez-modal-after-load: after an html fragment is loaded with ajax
 
 
 If you manage this events you can find in the "opt" object the same parameters passed to the plugin.
 In the ui object you will find: container, backdrop, and modal 
+
 
 HTML5 data API
 --------------
@@ -117,3 +122,22 @@ You can trigger the modal using an HTML5 data api. Examples:
         <button data-toggle="modal" data-target="ajax.html">ajax modal (data api)</button>
         <a data-toggle="modal" href="ajax.html">link (data api)</a>
 
+
+Customizing behaviour using HTML5 data API 
+------------------------------------------
+First of all you can pass option in the overlay or trigger tag:
+
+    <a data-toggle="modal" data-refresh-everytime="false" center="true" href="ajax.html">link (data api)</a>
+
+Using options the "true" and "false" will be converted automatically in boolean. Hyphenated attributes will be converted to camelCased options.
+
+If you want to manage events you can add an data attribute to help distinguish overlays:
+
+    <a data-modal-type="login-overlay" data-toggle="modal" href="ajax.html">link (data api)</a>
+
+    $document.on('ez-modal-after-open', function (evt){
+        var opt = evt.opt;
+        if (opt.modalType && opt.modalType === "login-overlay"){
+            \\ do something
+        }
+    });
