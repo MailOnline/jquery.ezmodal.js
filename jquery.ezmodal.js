@@ -98,15 +98,17 @@ A extensible jQuery modal.
                 addClasses = function(){
                     ui.backdrop.show();
                     ui.modal.show();
+                    centerModal();
 
                     setTimeout(function (){
                         ui.container.addClass(NS + '-container-on');
                         ui.backdrop.addClass(NS + '-backdrop-on');
                         ui.modal.addClass(NS + "-on");
+                        ui.modal.attr("aria-hidden", "false");
+                        ui.modal.focus();                   
+                        ui.modal.trigger({type: NS + "-after-open", ui: ui, opt: o});
                     }, 30);
 
-                    ui.modal.attr("aria-hidden", "false");
-                    ui.modal.focus();                   
                 };
 
                 removeClasses = function (){
@@ -134,6 +136,7 @@ A extensible jQuery modal.
                         .one($.support.transition.end, function (){
                             ui.modal.removeClass(NS + "-off")
                             .hide();
+                            ui.modal.trigger({type: NS + "-after-close", ui: ui, opt: o});
                         })
                         .emulateTransitionEnd(600);
 
@@ -141,6 +144,7 @@ A extensible jQuery modal.
                     else {
                         ui.backdrop.hide();
                         ui.modal.hide();
+                        ui.modal.trigger({type: NS + "-after-close", ui: ui, opt: o});
                     }
                         
 
@@ -178,15 +182,12 @@ A extensible jQuery modal.
                     ui.modal.trigger({type: NS + "-before-open", ui: ui, opt: o});
                     loadHTML(function (){
                         addClasses();
-                        centerModal();
-                        ui.modal.trigger({type: NS + "-after-open", ui: ui, opt: o});
                     });
                 });
 
                 ui.modal.bind(NS + '-close', function (){
                     ui.modal.trigger({type: NS + "-before-close", ui: ui, opt: o});
                     removeClasses();   
-                    ui.modal.trigger({type: NS + "-after-close", ui: ui, opt: o});
                 });
 
                 if(o.autoOpen) {
@@ -236,6 +237,7 @@ A extensible jQuery modal.
                     $(document).off(evtNS);
                     removeClasses();
                     ui.modal.removeData('modal');
+                    
                 });
 
             });
