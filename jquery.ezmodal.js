@@ -75,7 +75,7 @@ A extensible jQuery modal.
 
             return this.each(function () {
                 var o = options,
-                    addClasses, removeClasses, loadHTML,
+                    showModal, hideModal, showBackdrop, loadHTML,
                     ui = {},
                     evtNS = '.' + NS + '-' + (numberOfModals++),
                     alreadyLoaded = false,
@@ -95,14 +95,19 @@ A extensible jQuery modal.
                 ui.modal = $(this).addClass(NS);
                 ui.modal.data('modal', 'active');
 
-                addClasses = function(){
+                showBackdrop = function(){
                     ui.backdrop.show();
+                    setTimeout(function (){
+                        ui.backdrop.addClass(NS + '-backdrop-on');
+                    }, 30);
+                };
+
+                showModal = function(){
                     ui.modal.show();
                     centerModal();
 
                     setTimeout(function (){
                         ui.container.addClass(NS + '-container-on');
-                        ui.backdrop.addClass(NS + '-backdrop-on');
                         ui.modal.addClass(NS + "-on");
                         ui.modal.attr("aria-hidden", "false");
                         ui.modal.focus();                   
@@ -111,7 +116,7 @@ A extensible jQuery modal.
 
                 };
 
-                removeClasses = function (){
+                hideModal = function (){
                     ui.container.removeClass(NS + "-container-on");
                     ui.backdrop.removeClass(NS + "-backdrop-on");
                     ui.modal.removeClass(NS + "-on");
@@ -154,6 +159,8 @@ A extensible jQuery modal.
                     if (toBeCentered){
                         ui.modal.css("margin-left",0);
                         ui.modal.css("margin-left","-" + (ui.modal.outerWidth(true) / 2) + "px");
+                        ui.modal.css("margin-top",0);
+                        ui.modal.css("margin-top","-" + (ui.modal.outerHeight(true) / 2) + "px");
                     }
                     toBeCentered = false;
 
@@ -178,16 +185,17 @@ A extensible jQuery modal.
                     loadHTML(function (){});
                 }
 
-                ui.modal.bind(NS + '-open', function (){
+                ui.modal.on(NS + '-open' + evtNS, function (){
+                    showBackdrop();
                     ui.modal.trigger({type: NS + "-before-open", ui: ui, opt: o});
                     loadHTML(function (){
-                        addClasses();
+                        showModal();
                     });
                 });
 
-                ui.modal.bind(NS + '-close', function (){
+                ui.modal.on(NS + '-close' + evtNS, function (){
                     ui.modal.trigger({type: NS + "-before-close", ui: ui, opt: o});
-                    removeClasses();   
+                    hideModal();   
                 });
 
                 if(o.autoOpen) {
@@ -219,7 +227,7 @@ A extensible jQuery modal.
                     });
                 }
 
-                ui.modal.on("click" + evtNS, '.' + NS + '-close', o.closeButtonClass,function (evt){
+                ui.modal.on("click" + evtNS, '.' + NS + '-close',function (evt){
                     ui.modal.trigger(NS + '-close');
                     return false;
                 });
@@ -231,11 +239,11 @@ A extensible jQuery modal.
                     });
                 }
 
-                ui.modal.bind(NS + '-destroy', function (){
+                ui.modal.bind(NS + '-destroy' + evtNS, function (){
                     ui.backdrop.off(evtNS);
                     ui.modal.off(evtNS);
                     $(document).off(evtNS);
-                    removeClasses();
+                    hideModal();
                     ui.modal.removeData('modal');
                     
                 });
