@@ -68,7 +68,8 @@ A extensible jQuery modal.
                 // to filter the html: "http://www.example.com/page.html #content"
                 ajaxUrl: false, // can be false, a string or a function that returns a url
                 ajaxRefreshEverytime: true, // refresh the modal when reopened
-                ajaxLoadOnInit: false // it loads on init (instead of on open)
+                ajaxLoadOnInit: false, // it loads on init (instead of on open)
+                ajaxErrorMessage: "Sorry, but something went wrong. Please come back later and try again."
             };
 
             options = $.extend(defaults, options);
@@ -169,9 +170,14 @@ A extensible jQuery modal.
                 loadHTML = o.ajaxUrl && function (cb){
                     if (!alreadyLoaded || o.ajaxRefreshEverytime){
                         ui.modal.trigger({type: NS + "-before-load", ui: ui, opt: o});
-                        ui.modal.load($.isFunction(o.ajaxUrl) && o.ajaxUrl() || o.ajaxUrl, function (){
-                            alreadyLoaded = true;
-                            toBeCentered = o.center;                            
+                        ui.modal.load($.isFunction(o.ajaxUrl) && o.ajaxUrl() || o.ajaxUrl, function (response, status, req){
+                            if (status === "error"){
+                                ui.modal.html('<div class="' + NS +'-error '+ NS +'-close" >' + o.ajaxErrorMessage + '</div>');
+                            }
+                            else {
+                                alreadyLoaded = true;
+                                toBeCentered = o.center;                            
+                            }
                             ui.modal.trigger({type: NS + "-after-load", ui: ui, opt: o});
                             cb();
                         });

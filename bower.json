@@ -1,6 +1,6 @@
 {
   "name": "jquery.ezmodal.js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": ["jquery.ezmodal.js", "jquery.ezmodal.css"],
   "homepage": "https://github.com/Mailonline/jquery.ezmodal.js",
   "authors": [
