@@ -289,6 +289,7 @@ A extensible jQuery modal.
         var $this   = $(this),
             href    = $this.attr('href'),
             target = $this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, '')), //strip for ie7
+            modalId = $this.data('modal-id'),
             $target;
 
         // not ajax
@@ -300,14 +301,20 @@ A extensible jQuery modal.
         }
         // ajax
         else {
-            if (!$this.data('modal')){
-                $target = $('<div class="' + NS + '" aria-hidden="true" role="dialog"></div>');
-                $target
-                .ezmodal($.extend({ajaxUrl: target, toggleButtons: $this}, $this.data()))
-                .appendTo('body');
+            if (modalId){
+                $target = $('#' + modalId);
             }
             else {
                 $target = $this.data('modal');
+            }
+            if ($target.length == 0){
+                $target = $('<div class="' + NS + '" aria-hidden="true" role="dialog"></div>');
+
+                modalId && $target.attr('id', modalId);
+                
+                $target
+                .ezmodal($.extend({ajaxUrl: target, toggleButtons: $this}, $this.data()))
+                .appendTo('body');
             }
         }
 
