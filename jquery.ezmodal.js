@@ -307,7 +307,7 @@ A extensible jQuery modal.
             else {
                 $target = $this.data('modal');
             }
-            if ($target.length == 0){
+            if (!$target || $target.length == 0){
                 $target = $('<div class="' + NS + '" aria-hidden="true" role="dialog"></div>');
 
                 modalId && $target.attr('id', modalId);
