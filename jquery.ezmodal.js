@@ -287,7 +287,7 @@ A extensible jQuery modal.
     /* HTML5 data API */
     $(document).on('click.' + NS, '[data-toggle="modal"]', function (e) {
         var $this   = $(this);
-        if ($this.attr('data-on-mobile')) {
+        if ($this.attr('data-on-mobile') && (MobileUtils.isMobile() || MobileUtils.isKindleSilk())) {
             $(this).attr("href",$this.attr('data-on-mobile'));
             return;
         }
