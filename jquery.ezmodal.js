@@ -286,8 +286,13 @@ A extensible jQuery modal.
 
     /* HTML5 data API */
     $(document).on('click.' + NS, '[data-toggle="modal"]', function (e) {
-        var $this   = $(this),
-            href    = $this.attr('href'),
+        var $this   = $(this);
+        if ($this.attr('data-on-mobile')) {
+            $(this).attr("href",$this.attr('data-on-mobile'));
+            return;
+        }
+        
+        var href    = $this.attr('href'),
             target = $this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, '')), //strip for ie7
             modalId = $this.data('modal-id'),
             $target;
