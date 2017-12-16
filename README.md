@@ -15,7 +15,7 @@ This is your modal:
 Initialize with:
 
 ```js
-$(".my-modal-selector").ezmodal(options)
+$(".my-modal-selector").ezmodal(options);
 ```
 
 In the `body` tag:
@@ -32,7 +32,7 @@ In the `body` tag:
 Open with:
 
 ```js
-$(".my-modal-selector").trigger('ez-modal-open')
+$(".my-modal-selector").trigger('ez-modal-open');
 ```
 
 or
@@ -56,7 +56,7 @@ And the html becomes:
 Close with:
 
 ```js
-$(".my-modal-selector").trigger('ez-modal-close')
+$(".my-modal-selector").trigger('ez-modal-close');
 ```
 
 or
@@ -92,7 +92,7 @@ and then:
 Destroy (unbind all events) with:
 
 ```js
-$(".my-modal-selector").trigger('ez-modal-destroy')
+$(".my-modal-selector").trigger('ez-modal-destroy');
 ```
 
 or
