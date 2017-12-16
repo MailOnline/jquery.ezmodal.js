@@ -178,7 +178,7 @@ If you want to manage events you can add an data attribute to help distinguish o
 $document.on('ez-modal-after-open', function (evt){
     var opt = evt.opt;
     if (opt.modalType && opt.modalType === "login-overlay"){
-        \\ do something
+        // do something
     }
 });
 ```
