@@ -13,7 +13,7 @@ A extensible jQuery modal.
 
     /*this 2 functions are from "transitions.js" of twitter bootstrap*/
     function transitionEnd() {
-        var el = document.createElement('bootstrap')
+        var el = document.createElement('bootstrap');
 
         var transEndEventNames = {
           'WebkitTransition' : 'webkitTransitionEnd'
@@ -24,7 +24,7 @@ A extensible jQuery modal.
 
         for (var name in transEndEventNames) {
           if (el.style[name] !== undefined) {
-            return { end: transEndEventNames[name] }
+            return { end: transEndEventNames[name] };
           }
         }
     }
@@ -32,10 +32,10 @@ A extensible jQuery modal.
     // http://blog.alexmaccaw.com/css-transitions
     $.fn.emulateTransitionEnd = function (duration) {
         var called = false, $el = this
-        $(this).one($.support.transition.end, function () { called = true })
+        $(this).one($.support.transition.end, function () { called = true });
 
         var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
-        setTimeout(callback, duration)
+        setTimeout(callback, duration);
 
         return this
     };
@@ -83,9 +83,9 @@ A extensible jQuery modal.
                     toBeCentered = o.center, centerModal,
                     closeKeyCodes = $.map(o.closeKeyCodes.split(" "), function (el){
                         if (el && el.length){
-                            return parseInt(el, 10)
+                            return parseInt(el, 10);
                         }
-                    });;
+                    });
 
                 ui.container = $(o.container);
                 ui.backdrop = ui.container.children('.' + NS + '-backdrop');
@@ -121,7 +121,7 @@ A extensible jQuery modal.
                     ui.container.removeClass(NS + "-container-on");
                     ui.backdrop.removeClass(NS + "-backdrop-on");
                     ui.modal.removeClass(NS + "-on");
-                    ui.modal.attr("aria-hidden", "true")                   
+                    ui.modal.attr("aria-hidden", "true");              
 
                     if ($.support.transition){
 
@@ -326,6 +326,5 @@ A extensible jQuery modal.
         $target.ezmodal('open');
         e.preventDefault();
     });
-
 
 }(jQuery));
